@@ -1,0 +1,52 @@
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="w3.css">
+<body>
+ <div class="w3-bar w3-black">
+  <a href="#" class="w3-bar-item w3-button">Home</a>
+  <a href="#" class="w3-bar-item w3-button">Link 1</a>
+  <a href="#" class="w3-bar-item w3-button">Link 2</a>
+  <a href="#" class="w3-bar-item w3-button">Link 3</a>
+</div> 
+<center>
+<h1>NOW SHOWING</h1>
+</div>
+
+<div class="w3-row-padding w3-margin-top">
+<?php
+require ("koneksi.php");
+$sql="select * from datafilm";
+$hasil=mysqli_query($db,$sql);
+$row=mysqli_fetch_row($hasil);
+$n=1;
+do
+{
+list($idfilm,$kategori,$judul,$harga,$tanggal,$jadwal, $jadwal2)=$row;
+?>
+<div class="w3-third">
+<div class="w3-card">
+<br>
+<?php 
+echo "<center><img src='./images/$idfilm.jpg' width=70% height=50%></center>";
+?>
+<div class="w3-container">
+<?php
+echo "<h5>$judul</h5>";
+echo number_format ($harga,2,",",".");
+echo "<h5>tanggal : $tanggal</h5>";
+echo "<h5>jadwal : $jadwal - $jadwal2</h5>";
+echo "<a class='w3-btn w3-blue' href='index.php?p=belisekarang&kodebrg=$idfilm'> Buy Now </a>";
+?>
+</div>
+<br>
+</div>
+<br>
+</div>
+<?php
+}
+while($row=mysqli_fetch_row($hasil));
+?>
+</div>
+    </div>
+</body>
+</html>
